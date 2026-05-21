@@ -1,0 +1,188 @@
+Table,Column_Order,Column,Data_Type,Nullable,Default_Value,Extra,Primary_Key,Unique,Foreign_Key,References_Table,References_Column
+account,1,account_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+account,2,email,varchar(50),NO,NULL,,,YES,,NULL,NULL
+account,2,email,varchar(50),NO,NULL,,,YES,,NULL,NULL
+account,3,password_hash,varchar(255),NO,NULL,,,,,NULL,NULL
+account,4,status,"enum('active','banned')",NO,NULL,,,,,NULL,NULL
+account,5,created_at,datetime,NO,NULL,,,,,NULL,NULL
+account,6,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+account,7,last_login,datetime,YES,NULL,,,,,NULL,NULL
+account_role,1,account_id,"int unsigned",NO,NULL,,YES,,YES,account,account_id
+account_role,2,role_id,"int unsigned",NO,NULL,,YES,,YES,role,role_id
+category,1,category_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+category,2,category_name,varchar(100),NO,NULL,,,YES,,NULL,NULL
+category,3,type,varchar(50),NO,NULL,,,YES,,NULL,NULL
+category_lesson,1,category_id,"int unsigned",NO,NULL,,YES,YES,YES,category,category_id
+category_lesson,2,lesson_id,"int unsigned",NO,NULL,,YES,,YES,lesson,lesson_id
+category_lesson,3,lesson_order,"int unsigned",NO,NULL,,,YES,,NULL,NULL
+category_test,1,category_id,"int unsigned",NO,NULL,,YES,YES,YES,category,category_id
+category_test,2,test_id,"int unsigned",NO,NULL,,YES,,YES,test,test_id
+category_test,3,test_order,"int unsigned",NO,NULL,,,YES,,NULL,NULL
+comment_report,1,cmt_report_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+comment_report,2,comment_id,"int unsigned",NO,NULL,,,,YES,user_comment,comment_id
+comment_report,3,reporter_user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+comment_report,4,reason,varchar(255),NO,NULL,,,,,NULL,NULL
+comment_report,5,status,"enum('PENDING','RESOLVED','REJECTED')",NO,NULL,,,,,NULL,NULL
+comment_report,6,handled_by,"int unsigned",YES,NULL,,,,YES,user_profile,user_id
+comment_report,7,handled_at,datetime,YES,NULL,,,,,NULL,NULL
+comment_report,8,created_at,datetime,NO,NULL,,,,,NULL,NULL
+comment_report,9,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+conversation,1,conversation_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+conversation,2,created_at,datetime,NO,NULL,,,,,NULL,NULL
+conversation,3,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+conversation,4,last_message_id,"int unsigned",YES,NULL,,,,,NULL,NULL
+conversation_participant,1,conversation_id,"int unsigned",NO,NULL,,YES,YES,YES,conversation,conversation_id
+conversation_participant,2,user_id,"int unsigned",NO,NULL,,YES,YES,YES,user_profile,user_id
+conversation_participant,3,joined_at,datetime,NO,NULL,,,,,NULL,NULL
+lesson,1,lesson_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+lesson,2,category_id,"int unsigned",NO,NULL,,,,YES,category,category_id
+lesson,3,lesson_title,varchar(100),NO,NULL,,,YES,,NULL,NULL
+lesson,4,description,varchar(255),NO,NULL,,,,,NULL,NULL
+lesson,5,image_url,varchar(255),YES,NULL,,,,,NULL,NULL
+lesson,6,level,"enum('A1','A2','B1','B2','C1','C2')",NO,NULL,,,,,NULL,NULL
+lesson,7,is_active,tinyint(1),NO,1,,,,,NULL,NULL
+lesson,8,created_by,"int unsigned",YES,NULL,,,,YES,account,account_id
+lesson,9,created_at,datetime,NO,NULL,,,,,NULL,NULL
+lesson,10,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+lesson_question,1,lesson_id,"int unsigned",NO,NULL,,YES,YES,YES,lesson,lesson_id
+lesson_question,2,question_id,"int unsigned",NO,NULL,,YES,,YES,question,question_id
+lesson_question,3,lesson_question_order,"int unsigned",NO,NULL,,,YES,,NULL,NULL
+lesson_vocab,1,lesson_id,"int unsigned",NO,NULL,,YES,YES,YES,lesson,lesson_id
+lesson_vocab,2,vocab_id,"int unsigned",NO,NULL,,YES,,YES,vocab,vocab_id
+lesson_vocab,3,vocab_order,"int unsigned",NO,NULL,,,YES,,NULL,NULL
+match_answer,1,match_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_answer,2,user_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_answer,3,question_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_answer,4,selected_option_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_answer,5,is_correct,tinyint(1),NO,NULL,,,,,NULL,NULL
+match_answer,6,response_time_ms,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_answer,7,answered_at,datetime,NO,NULL,,,,,NULL,NULL
+match_participant,1,match_id,"int unsigned",NO,NULL,,YES,,YES,matching,match_id
+match_participant,2,user_id,"int unsigned",NO,NULL,,YES,,YES,user_profile,user_id
+match_participant,3,betting_amount,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_participant,4,elo_before,"int unsigned",NO,NULL,,,,,NULL,NULL
+match_participant,5,elo_after,"int unsigned",YES,NULL,,,,,NULL,NULL
+match_participant,6,result,"enum('Win','Lose','Draw')",YES,NULL,,,,,NULL,NULL
+match_participant,7,joined_at,datetime,NO,NULL,,,,,NULL,NULL
+matching,1,match_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+matching,2,test_id,"int unsigned",NO,NULL,,,,YES,test,test_id
+matching,3,status,"enum('ONGOING','FINISHED','CANCELLED')",YES,NULL,,,,,NULL,NULL
+matching,4,start_at,datetime,YES,NULL,,,,,NULL,NULL
+matching,5,end_at,datetime,YES,NULL,,,,,NULL,NULL
+matching,6,time_limit_sec,"int unsigned",NO,NULL,,,,,NULL,NULL
+matchmaking_queue,1,queue_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+matchmaking_queue,2,user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+matchmaking_queue,3,match_id,"int unsigned",YES,NULL,,,,YES,matching,match_id
+matchmaking_queue,4,elo_snapshot,"int unsigned",NO,NULL,,,,,NULL,NULL
+matchmaking_queue,5,betting_amount,"int unsigned",NO,NULL,,,,,NULL,NULL
+matchmaking_queue,6,status,"enum('WAITING','MATCHED','CANCELLED','TIMEOUT')",YES,NULL,,,,,NULL,NULL
+matchmaking_queue,7,created_at,datetime,NO,NULL,,,,,NULL,NULL
+matchmaking_queue,8,matched_at,datetime,YES,NULL,,,,,NULL,NULL
+matchmaking_queue,9,expires_at,datetime,YES,NULL,,,,,NULL,NULL
+message,1,message_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+message,2,conversation_id,"int unsigned",NO,NULL,,,,YES,conversation,conversation_id
+message,3,sender_user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+message,4,content,text,NO,NULL,,,,,NULL,NULL
+message,5,status,"enum('SENT','DELETED')",NO,NULL,,,,,NULL,NULL
+message,6,created_at,datetime,NO,NULL,,,,,NULL,NULL
+message,7,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+message_read,1,message_id,"int unsigned",NO,NULL,,YES,,YES,message,message_id
+message_read,2,user_id,"int unsigned",NO,NULL,,YES,,YES,user_profile,user_id
+message_read,3,read_at,datetime,NO,NULL,,,,,NULL,NULL
+post,1,post_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+post,2,user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+post,3,title,varchar(255),NO,NULL,,,,,NULL,NULL
+post,4,content,text,NO,NULL,,,,,NULL,NULL
+post,5,post_type,varchar(50),NO,NULL,,,,,NULL,NULL
+post,6,status,"enum('ACTIVE','HIDDEN','DELETED')",NO,NULL,,,,,NULL,NULL
+post,7,created_at,datetime,NO,NULL,,,,,NULL,NULL
+post,8,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+question,1,question_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+question,2,question_content,varchar(500),NO,NULL,,,YES,,NULL,NULL
+question,3,image_url,varchar(255),YES,NULL,,,,,NULL,NULL
+question,4,explanation,varchar(1000),NO,NULL,,,,,NULL,NULL
+question,5,level,"enum('A1','A2','B1','B2','C1','C2')",NO,NULL,,,,,NULL,NULL
+question,6,is_active,tinyint(1),NO,1,,,,,NULL,NULL
+question,7,created_by,"int unsigned",YES,NULL,,,,YES,account,account_id
+question,8,created_at,datetime,NO,NULL,,,,,NULL,NULL
+question,9,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+question_option,1,option_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+question_option,2,question_id,"int unsigned",NO,NULL,,,YES,YES,question,question_id
+question_option,3,option_content,varchar(500),NO,NULL,,,,,NULL,NULL
+question_option,4,is_correct,tinyint(1),NO,NULL,,,,,NULL,NULL
+question_option,5,option_order,int,NO,NULL,,,YES,,NULL,NULL
+question_option,6,created_at,datetime,NO,NULL,,,,,NULL,NULL
+question_option,7,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+role,1,role_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+role,2,role_name,varchar(11),NO,NULL,,,YES,,NULL,NULL
+test,1,test_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+test,2,test_title,varchar(50),NO,NULL,,,YES,,NULL,NULL
+test,3,image_url,varchar(255),YES,NULL,,,,,NULL,NULL
+test,4,level,"enum('A1','A2','B1','B2','C1','C2')",NO,NULL,,,,,NULL,NULL
+test,5,is_active,tinyint(1),NO,1,,,,,NULL,NULL
+test,6,created_by,"int unsigned",YES,NULL,,,,YES,account,account_id
+test,7,created_at,datetime,NO,NULL,,,,,NULL,NULL
+test,8,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+test_question,1,test_id,"int unsigned",NO,NULL,,YES,YES,YES,test,test_id
+test_question,2,question_id,"int unsigned",NO,NULL,,YES,,YES,question,question_id
+test_question,3,question_order,"int unsigned",NO,NULL,,,YES,,NULL,NULL
+user_comment,1,comment_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+user_comment,2,post_id,"int unsigned",NO,NULL,,,,YES,post,post_id
+user_comment,3,user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+user_comment,4,parent_comment_id,"int unsigned",YES,NULL,,,,YES,user_comment,comment_id
+user_comment,5,content,text,NO,NULL,,,,,NULL,NULL
+user_comment,6,status,"enum('ACTIVE','HIDDEN','DELETED')",NO,NULL,,,,,NULL,NULL
+user_comment,7,created_at,datetime,NO,NULL,,,,,NULL,NULL
+user_comment,8,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+user_lesson_progress,1,user_id,"int unsigned",NO,NULL,,YES,,YES,user_profile,user_id
+user_lesson_progress,2,lesson_id,"int unsigned",NO,NULL,,YES,,YES,lesson,lesson_id
+user_lesson_progress,3,status,"enum('completed','uncompleted')",NO,NULL,,,,,NULL,NULL
+user_lesson_progress,4,last_question_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+user_lesson_progress,5,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+user_lesson_progress,6,completed_at,datetime,YES,NULL,,,,,NULL,NULL
+user_lesson_question_attempt,1,attempt_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+user_lesson_question_attempt,2,user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+user_lesson_question_attempt,3,lesson_id,"int unsigned",NO,NULL,,,,YES,lesson,lesson_id
+user_lesson_question_attempt,4,question_id,"int unsigned",NO,NULL,,,,YES,question,question_id
+user_lesson_question_attempt,5,user_answer,varchar(500),NO,NULL,,,,,NULL,NULL
+user_lesson_question_attempt,6,correct_value,varchar(500),NO,NULL,,,,,NULL,NULL
+user_lesson_question_attempt,7,is_correct,tinyint(1),NO,NULL,,,,,NULL,NULL
+user_lesson_question_attempt,8,answered_at,datetime,NO,NULL,,,,,NULL,NULL
+user_profile,1,user_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+user_profile,2,account_id,"int unsigned",NO,NULL,,,YES,YES,account,account_id
+user_profile,3,username,varchar(20),NO,NULL,,,YES,,NULL,NULL
+user_profile,4,fullname,varchar(100),YES,NULL,,,,,NULL,NULL
+user_profile,5,gender,"enum('Male','Female')",NO,NULL,,,,,NULL,NULL
+user_profile,6,phone,varchar(20),YES,NULL,,,,,NULL,NULL
+user_profile,7,country,varchar(100),YES,Vietnam,,,,,NULL,NULL
+user_profile,8,yob,date,NO,NULL,,,,,NULL,NULL
+user_profile,9,join_date,datetime,NO,NULL,,,,,NULL,NULL
+user_profile,10,avatar_url,varchar(255),YES,NULL,,,,,NULL,NULL
+user_profile,11,bio,varchar(200),YES,"I have no clue",,,,,NULL,NULL
+user_profile,12,contribution_point,int,NO,0,,,,,NULL,NULL
+user_profile,13,ELO,int,NO,0,,,,,NULL,NULL
+user_test_progress,1,user_id,"int unsigned",NO,NULL,,YES,,YES,user_profile,user_id
+user_test_progress,2,test_id,"int unsigned",NO,NULL,,YES,,YES,test,test_id
+user_test_progress,3,status,"enum('completed','uncompleted')",NO,NULL,,,,,NULL,NULL
+user_test_progress,4,last_question_id,"int unsigned",NO,NULL,,,,,NULL,NULL
+user_test_progress,5,updated_at,datetime,NO,NULL,,,,,NULL,NULL
+user_test_progress,6,completed_at,datetime,YES,NULL,,,,,NULL,NULL
+user_test_question_attempt,1,attempt_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+user_test_question_attempt,2,user_id,"int unsigned",NO,NULL,,,,YES,user_profile,user_id
+user_test_question_attempt,3,test_id,"int unsigned",NO,NULL,,,,YES,test,test_id
+user_test_question_attempt,4,question_id,"int unsigned",NO,NULL,,,,YES,question,question_id
+user_test_question_attempt,5,user_answer,varchar(500),NO,NULL,,,,,NULL,NULL
+user_test_question_attempt,6,correct_value,varchar(500),NO,NULL,,,,,NULL,NULL
+user_test_question_attempt,7,is_correct,tinyint(1),NO,NULL,,,,,NULL,NULL
+user_test_question_attempt,8,answered_at,datetime,NO,NULL,,,,,NULL,NULL
+vocab,1,vocab_id,"int unsigned",NO,NULL,,YES,,,NULL,NULL
+vocab,2,word,varchar(50),NO,NULL,,,YES,,NULL,NULL
+vocab,3,word_form,"enum('verb','noun','adj','adv')",NO,NULL,,,,,NULL,NULL
+vocab,4,level,"enum('A1','A2','B1','B2','C1','C2')",NO,NULL,,,,,NULL,NULL
+vocab,5,is_active,tinyint(1),NO,1,,,,,NULL,NULL
+vocab,6,meaning,varchar(500),NO,NULL,,,,,NULL,NULL
+vocab,7,image_url,varchar(255),YES,NULL,,,,,NULL,NULL
+vocab,8,example_sentence,varchar(1000),NO,NULL,,,,,NULL,NULL
+vocab,9,created_by,"int unsigned",YES,NULL,,,,YES,account,account_id
+vocab,10,created_at,datetime,NO,NULL,,,,,NULL,NULL
+vocab,11,updated_at,datetime,NO,NULL,,,,,NULL,NULL
