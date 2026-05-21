@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: my_mysql_dev
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "0512"
+      MYSQL_DATABASE: vsusenglish
+      MYSQL_ROOT_HOST: "%"
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    command:
+      - --bind-address=0.0.0.0
+
+volumes:
+  mysql_data:
