@@ -24,6 +24,7 @@ create table if not exists user_profile
     gender enum('Male', 'Female') not null,
     phone varchar(15) not null,
     yob date not null,
+    country varchar(50) not null,
     join_date datetime not null,
     avatar_url varchar(255),
     bio varchar(200) Default 'I have no clue',
