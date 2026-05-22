@@ -1,10 +1,9 @@
 package org.Linh0512.module.user.presentation.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.Linh0512.core.security.jwt.JwtAuthenticationFilter;
 import org.Linh0512.module.user.application.service.UserService;
 import org.Linh0512.module.user.presentation.dto.request.user.ProfileInforRequest;
-import org.Linh0512.module.user.presentation.dto.response.ApiResponse;
+import org.Linh0512.core.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +43,15 @@ public class ProfileController {
         String token = authHeader.replace("Bearer ", "");
         userService.deleteProfileByEmail(token);
         return ResponseEntity.ok(ApiResponse.success(null,"Delete profile successfully"));
+    }
+
+    @GetMapping("/get-all-users")
+    public ResponseEntity<ApiResponse<?>> getAllUsers(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(
+                ApiResponse.success(userService.getAllUsers(pageNo, pageSize),
+                        "Get all users successfully"));
     }
 
 }

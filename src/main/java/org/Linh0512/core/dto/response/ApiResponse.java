@@ -1,4 +1,4 @@
-package org.Linh0512.module.user.presentation.dto.response;
+package org.Linh0512.core.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
